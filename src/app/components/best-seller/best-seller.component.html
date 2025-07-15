@@ -1,0 +1,31 @@
+<div class="max-w-7xl mx-auto px-6 py-12">
+  <h2 class="text-3xl font-bold mb-6 text-gray-800">Best Seller</h2>
+
+  <!-- Scrollable container -->
+  <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+    <div
+      *ngFor="let product of products"
+      class="min-w-[250px] max-w-[250px] flex-shrink-0 bg-white shadow-md rounded-xl overflow-hidden group hover:shadow-xl transition-shadow duration-300"
+    >
+      <img
+        [src]="product.img"
+        [alt]="product.name"
+        class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+      <div class="p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-base font-semibold text-gray-900 mb-1">{{ product.name }}</h3>
+          <p *ngIf="product.desc" class="text-gray-600 text-sm mb-3">{{ product.desc }}</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-900 font-bold text-base">${{ product.price }}</span>
+          <button
+            class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md transition duration-200"
+          >
+            Buy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

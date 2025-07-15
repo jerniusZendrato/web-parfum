@@ -1,0 +1,61 @@
+<div class="relative w-full max-w-7xl mt-20 mb-8 mx-auto overflow-hidden rounded-lg shadow-lg">
+
+  <!-- Background Blur -->
+  <div
+    class="absolute inset-0 bg-cover bg-center filter blur-3xl scale-110 opacity-40 transition-all duration-700"
+    [ngStyle]="{'background-image': 'url(' + slides[currentIndex].img + ')'}"
+  ></div>
+
+  <!-- Slides container -->
+  <div class="relative z-10">
+
+    <div
+      class="flex flex-col md:flex-row items-center gap-8 p-8 text-white"
+      *ngFor="let slide of slides; let i = index"
+      [class.hidden]="i !== currentIndex"
+    >
+      <img
+        [src]="slide.img"
+        [alt]="slide.title"
+        class="w-full md:w-1/2 rounded-lg shadow-lg object-cover"
+      />
+      <div class="md:w-1/2 fade-in">
+        <h2 class="text-4xl font-bold mb-4">{{ slide.title }}</h2>
+        <p class="mb-6 text-lg text-gray-300">{{ slide.desc }}</p>
+        <button
+          class="bg-pink-500 hover:bg-pink-600 transition text-white font-semibold px-6 py-3 rounded-lg shadow-md"
+        >
+          Beli Sekarang
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button
+    aria-label="Previous Slide"
+    class="absolute top-1/2 left-3 -translate-y-1/2 w-16 h-16 flex items-center justify-center rounded-full
+           bg-white bg-opacity-20 backdrop-blur-sm text-white shadow-lg hover:bg-pink-500 hover:shadow-pink-400
+           hover:scale-110 transition-transform duration-300 z-20"
+    (click)="prevSlide()"
+  >
+    <!-- Panah kiri SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <button
+    aria-label="Next Slide"
+    class="absolute top-1/2 right-3 -translate-y-1/2 w-16 h-16 flex items-center justify-center rounded-full
+           bg-white bg-opacity-20 backdrop-blur-sm text-white shadow-lg hover:bg-pink-500 hover:shadow-pink-400
+           hover:scale-110 transition-transform duration-300 z-20"
+    (click)="nextSlide()"
+  >
+    <!-- Panah kanan SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+</div>

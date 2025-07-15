@@ -1,0 +1,81 @@
+<nav
+  id="navbar"
+  class="fixed w-full top-0 z-50 transition-all duration-300"
+  [ngClass]="{
+    'bg-white shadow-md': scrolled || isMobile,
+    'bg-transparent shadow-none': !scrolled && !isMobile
+  }"
+>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#" class="text-2xl font-extrabold text-purple-700 tracking-wide">
+      Parfum<span class="text-pink-500">.ID</span>
+    </a>
+
+    <!-- Menu Desktop -->
+    <ul class="hidden md:flex space-x-8 text-gray-700 font-medium">
+      <li><a href="#" class="hover:text-purple-600 transition">Beranda</a></li>
+      <li><a href="#" class="hover:text-purple-600 transition">Produk</a></li>
+      <li>
+        <a href="#" class="hover:text-purple-600 transition">Tentang Kami</a>
+      </li>
+      <li><a href="#" class="hover:text-purple-600 transition">Kontak</a></li>
+      <app-button-keranjang></app-button-keranjang>
+    </ul>
+    
+
+    <!-- Hamburger Mobile -->
+    <!-- Mobile actions: hamburger + keranjang -->
+    <div class="flex items-center space-x-4 md:hidden">
+      <!-- Panggil komponen keranjang -->
+       <app-button-keranjang></app-button-keranjang>
+
+      <!-- Tombol hamburger -->
+      <button (click)="toggleMobileMenu()" class="focus:outline-none">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7 text-gray-700"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 8h16M4 16h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div [ngClass]="{ hidden: !isMobileMenuOpen }" class="md:hidden px-6 pb-4">
+    <ul class="space-y-3 text-gray-700 font-medium">
+      <li>
+        <a href="#" class="block hover:text-purple-600 transition">Beranda</a>
+      </li>
+      <li>
+        <a href="#" class="block hover:text-purple-600 transition">Produk</a>
+      </li>
+      <li>
+        <a href="#" class="block hover:text-purple-600 transition"
+          >Tentang Kami</a
+        >
+      </li>
+      <li>
+        <a href="#" class="block hover:text-purple-600 transition">Kontak</a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    // Toggle mobile menu
+    const btn = document.getElementById("mobile-menu-button");
+    const menu = document.getElementById("mobile-menu");
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</nav>
