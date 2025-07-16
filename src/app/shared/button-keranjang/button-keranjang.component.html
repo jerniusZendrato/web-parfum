@@ -28,7 +28,7 @@
   
   <ul class="max-h-64 overflow-y-auto space-y-3">
     <li *ngFor="let item of savedProducts" class="flex items-center space-x-3">
-      <img [src]="item.image" alt="{{item.name}}" class="w-12 h-12 rounded object-cover border border-gray-200" />
+      <img [src]="item.img" alt="{{item.name}}" class="w-12 h-12 rounded object-cover border border-gray-200" />
       <div class="flex-1">
         <p class="font-medium text-gray-800">{{ item.name }}</p>
         <p class="text-sm text-gray-500">Jumlah: {{ item.jumlah }}</p>
