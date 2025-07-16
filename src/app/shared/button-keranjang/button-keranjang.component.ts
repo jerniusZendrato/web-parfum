@@ -27,8 +27,9 @@ export class ButtonKeranjangComponent implements OnInit{
     
   }
   updateCartCount() {
-    this.cartCount = this.savedProducts.reduce((total, item) => total + (item.jumlah || 1), 0);
-  }
+    // this.cartCount = this.savedProducts.reduce((total, item) => total + (item.jumlah || 1), 0);
+        this.cartCount = this.savedProducts.length
+      }
 
   openCart(event: Event) {
     event.preventDefault();
