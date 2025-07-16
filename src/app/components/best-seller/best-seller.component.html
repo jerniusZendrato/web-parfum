@@ -14,18 +14,122 @@
       />
       <div class="p-4 flex flex-col justify-between">
         <div>
-          <h3 class="text-base font-semibold text-gray-900 mb-1">{{ product.name }}</h3>
-          <p *ngIf="product.desc" class="text-gray-600 text-sm mb-3">{{ product.desc }}</p>
+          <h3 class="text-base font-semibold text-gray-900 mb-1">
+            {{ product.name }}
+          </h3>
+          <p *ngIf="product.desc" class="text-gray-600 text-sm mb-3">
+            {{ product.desc }}
+          </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="text-gray-900 font-bold text-base">${{ product.price }}</span>
-          <button
-            class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md transition duration-200"
+          <span class="text-gray-900 font-bold text-base"
+            >${{ product.price }}</span
           >
-            Buy
-          </button>
+          <ng-container
+            *ngIf="
+              getProductInkeranjang(product) as itemInkeranjang;
+              else buyButton
+            "
+          >
+            <div
+              class="flex items-center gap-1 bg-gray-100 rounded-full px-2 py-1 shadow-inner"
+            >
+              <button
+                class="w-8 h-8 flex items-center justify-center bg-white text-pink-500 border border-pink-300 rounded-full hover:bg-pink-50 hover:text-pink-600 transition duration-200"
+                (click)="decreaseQty(product); $event.stopPropagation()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 12H4"
+                  />
+                </svg>
+              </button>
+
+              <span class="w-6 text-center text-sm font-semibold text-gray-800">
+                {{ itemInkeranjang.jumlah }}
+              </span>
+
+              <button
+                class="w-8 h-8 flex items-center justify-center bg-white text-pink-500 border border-pink-300 rounded-full hover:bg-pink-50 hover:text-pink-600 transition duration-200"
+                (click)="increaseQty(product); $event.stopPropagation()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
+            </div>
+          </ng-container>
+
+          <ng-template #buyButton>
+            <button
+              class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md transition duration-200"
+              (click)="onBuyClick(product); $event.stopPropagation()"
+            >
+              Buy
+            </button>
+          </ng-template>
         </div>
       </div>
+         <!-- Tombol fixed bawah jika ada item yang belum disimpan -->
+<div
+  *ngIf="unsavedkeranjang.length > 0"
+  class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50"
+>
+
+<div
+  class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50"
+>
+  <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+    
+    <div class="flex items-center gap-2">
+      <div
+        class="bg-pink-100 text-pink-600 font-bold text-xs px-2 py-1 rounded-full shadow-sm"
+      >
+        {{ unsavedkeranjang.length }} Item
+      </div>
+      <span class="text-sm text-gray-600 font-medium">
+        Belum tersimpan di keranjang
+      </span>
     </div>
+
+    <button
+      class="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+      (click)="saveToLocalStorage()"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-9V5m-2 14h4a2 2 0 002-2v-4H9v4a2 2 0 002 2z"
+        />
+      </svg>
+      Simpan Sekarang
+    </button>
+  </div>
+</div>
+
+    </div>
+
+
   </div>
 </div>

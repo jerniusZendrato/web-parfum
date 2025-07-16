@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { KeranjangService } from '../../service/keranjang.service';
 
 @Component({
   selector: 'app-button-keranjang',
@@ -8,18 +9,27 @@ import { Component } from '@angular/core';
   templateUrl: './button-keranjang.component.html',
   styleUrl: './button-keranjang.component.css'
 })
-export class ButtonKeranjangComponent {
-  
-  isOpen = false;
-  
-  cartItems = [
-    { name: 'Parfum Floral', qty: 1, image: 'https://source.unsplash.com/80x80/?perfume,flower' },
-    { name: 'Parfum Citrus', qty: 2, image: 'https://source.unsplash.com/80x80/?perfume,citrus' },
-  ];
-  
-  cartCount = this.cartItems.length;
+export class ButtonKeranjangComponent implements OnInit{
 
-  
+   savedProducts: any[] = [];
+    cartCount: number = 0; 
+    isOpen = false;
+
+   constructor(private keranjangService: KeranjangService) {}
+
+   ngOnInit(): void {
+    this.updateCartCount();
+    // Reactive subscribe ke keranjang$
+    this.keranjangService.keranjang$.subscribe((data) => {
+      this.savedProducts = data;
+      this.updateCartCount();
+    });
+    
+  }
+  updateCartCount() {
+    this.cartCount = this.savedProducts.reduce((total, item) => total + (item.jumlah || 1), 0);
+  }
+
   openCart(event: Event) {
     event.preventDefault();
     this.isOpen = true;
@@ -30,13 +40,12 @@ export class ButtonKeranjangComponent {
   }
 
   removeItem(item: any) {
-    this.cartItems = this.cartItems.filter(i => i !== item);
-    this.cartCount = this.cartItems.reduce((acc, i) => acc + i.qty, 0);
+    this.keranjangService.removeItem(item); // Gunakan service
   }
 
   checkout() {
     alert('Lanjut ke pembayaran...');
-    // Logic checkout disini
+    // Tambahkan logika checkout bila perlu
   }
 
 
