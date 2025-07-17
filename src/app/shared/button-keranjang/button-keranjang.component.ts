@@ -45,8 +45,28 @@ export class ButtonKeranjangComponent implements OnInit{
   }
 
   checkout() {
-    alert('Lanjut ke pembayaran...');
+    // alert('Lanjut ke pembayaran...');
     // Tambahkan logika checkout bila perlu
+    const cart = JSON.parse(localStorage.getItem('savedProducts') || '[]');
+    if (cart.length === 0) {
+    alert('Keranjang masih kosong!');
+    return;
+  }
+    let message = `🛒 *Order Parfum*\n\n`;
+
+    cart.forEach((item: any, index: number) => {
+    message += `${index + 1}. *${item.name}*\n`;
+    message += `   Deskripsi: ${item.desc}\n`;
+    message += `   Qty: ${item.jumlah} pcs\n`;
+    message += `   Harga: Rp${item.price.toLocaleString('id-ID')}\n\n`;
+  });
+
+    const total = cart.reduce((sum: number, item: any) => sum + (item.price * item.jumlah), 0);
+  message += `🧾 *Total: Rp${total.toLocaleString('id-ID')}*\n`;
+
+    const phoneNumber = "6285157144414";
+  const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
   }
 
 
