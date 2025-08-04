@@ -1,0 +1,15 @@
+<div
+  *ngIf="showSplash"
+  class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-amber-100 transition-opacity duration-1000"
+  [ngClass]="{ 'opacity-0 scale-95': !splashVisible, 'opacity-100 scale-100': splashVisible }"
+>
+  <div class="text-center animate-fadeInUp">
+    <img
+      src="https://img.freepik.com/vecteurs-premium/logo-du-parfum_960117-8602.jpg?semt=ais_hybrid"
+      alt="Logo"
+      class="w-24 h-24 mx-auto mb-4 animate-pulse drop-shadow-lg"
+    />
+    <h1 class="text-3xl font-serif font-bold text-gray-800 tracking-wide">Parfum Élite</h1>
+    <p class="text-sm text-gray-600 mt-2 italic">Fragrance for the soul</p>
+  </div>
+</div>
